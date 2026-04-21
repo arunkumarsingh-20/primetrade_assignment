@@ -1,6 +1,15 @@
 const { registerSchema, loginSchema } = require("../validations/auth.validation");
 const { registerUser, loginUser } = require("../services/auth.service");
 
+const isProduction = process.env.NODE_ENV === "production";
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: isProduction ? "none" : "lax",
+  path: "/"
+};
+
 const register = async (req, res, next) => {
   try {
     const parsed = registerSchema.safeParse(req.body);
@@ -15,11 +24,7 @@ const register = async (req, res, next) => {
 
     const result = await registerUser(parsed.data);
 
-    res.cookie("token", result.token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax"
-    });
+    res.cookie("token", result.token, cookieOptions);
 
     return res.status(201).json({
       success: true,
@@ -45,11 +50,7 @@ const login = async (req, res, next) => {
 
     const result = await loginUser(parsed.data);
 
-    res.cookie("token", result.token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax"
-    });
+    res.cookie("token", result.token, cookieOptions);
 
     return res.status(200).json({
       success: true,
@@ -63,11 +64,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax"
-    });
+    res.clearCookie("token", cookieOptions);
 
     return res.status(200).json({
       success: true,
@@ -77,7 +74,6 @@ const logout = async (req, res, next) => {
     next(error);
   }
 };
-
 
 module.exports = {
   register,
