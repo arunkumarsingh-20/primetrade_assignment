@@ -16,12 +16,31 @@ const allowedOrigins = [
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+
+  if (allowedOrigins.includes(origin)) {
+    return true;
+  }
+
+  try {
+    const { hostname } = new URL(origin);
+    if (hostname.endsWith(".vercel.app")) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+
+  return false;
+};
+
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+  origin: (origin, callback) => {
+    if (isAllowedOrigin(origin)) {
       return callback(null, true);
     }
-    return callback(new Error("Not allowed by CORS"));
+    return callback(new Error(`CORS blocked origin: ${origin}`));
   },
   credentials: true
 };
