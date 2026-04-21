@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+  --bg: #050816;
+  --surface: rgba(8, 15, 28, 0.84);
+  --surface-strong: rgba(8, 15, 28, 0.96);
+  --surface-soft: rgba(15, 23, 42, 0.56);
+  --border: rgba(148, 163, 184, 0.14);
+  --text: #dbe4f0;
+  --text-strong: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #22d3ee;
+  --accent-2: #f59e0b;
+  --shadow-sm: 0 10px 30px rgba(2, 6, 23, 0.18);
+  --shadow-lg: 0 18px 60px rgba(2, 6, 23, 0.34);
+  --shadow-xl: 0 22px 80px rgba(2, 6, 23, 0.44);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(34, 211, 238, 0.12), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent 24%),
+    var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(34, 211, 238, 0.12), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent 24%),
+    var(--bg);
+}
+
+body::selection {
+  background: rgba(34, 211, 238, 0.18);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+code,
+kbd,
+pre {
+  font-family: "JetBrains Mono", Consolas, monospace;
+}
